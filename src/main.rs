@@ -1,42 +1,40 @@
-use rand::{rng, seq::SliceRandom};
-
 #[derive(Debug)]
-struct Deck {
-    cards: Vec<String>,
+struct Account {
+    id: u32,
+    balace: i32,
+    holder: String,
+}
+impl Account {
+    fn new(id: u32, holder: String) -> Self {
+        Account {
+            id,
+            holder,
+            balace: 0,
+        }
+    }
 }
 
-impl Deck {
+#[derive(Debug)]
+struct Bank {
+    accounts: Vec<Account>,
+}
+
+impl Bank {
     fn new() -> Self {
-        let suits = ["Hearts", "Spades", "Diamonds"];
-        let values = ["Ace", "Two", "Three"];
-        let mut cards = vec![];
-
-        for suit in suits {
-            for value in values {
-                let card = format!("{} of  {}", suit, value);
-                cards.push(card);
-            }
-        }
-
-        Deck { cards }
+        Bank { accounts: vec![] }
     }
+}
 
-    fn shuffle(&mut self) {
-        let mut rng = rng();
-        self.cards.shuffle(&mut rng);
-    }
-
-    fn deal(&mut self, num_cards: usize) -> Vec<String> {
-        self.cards.split_off(self.cards.len() - num_cards)
-    }
+fn print_account(account: Account) {
+    println!("{:#?}", account);
 }
 
 fn main() {
-    let mut deck = Deck::new();
-    
-    deck.shuffle();
-    let cards = deck.deal(3);
+    let bank = Bank::new();
+    // let account = Account::new(1, String::from("Me"));
+    let other_bank = bank;
 
-    println!("Heres your deck: {:#?}", deck);
-    println!("Heres your hand: {:#?}", cards);
+    println!("{:#?}", bank);
+    // borrow of moved value: `bank`
+    // value borrowed here after move
 }
