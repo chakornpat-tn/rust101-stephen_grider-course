@@ -25,16 +25,16 @@ impl Bank {
     }
 }
 
-fn print_account(account: Account) {
+fn print_account(account: Account) -> Account {
     println!("{:#?}", account);
+
+    account
 }
 
 fn main() {
+    let mut account = Account::new(1, String::from("me"));
     let bank = Bank::new();
-    // let account = Account::new(1, String::from("Me"));
-    let other_bank = bank;
 
-    println!("{:#?}", bank);
-    // borrow of moved value: `bank`
-    // value borrowed here after move
+    account = print_account(account);
+    print_account(account);
 }
