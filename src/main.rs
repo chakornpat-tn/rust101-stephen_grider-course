@@ -25,16 +25,24 @@ impl Bank {
     }
 }
 
-fn print_account(mut account: Account) -> Account {
+fn print_account(account: &Account) {
     println!("{:#?}", account);
-    account.balace += 10;
-    account
+}
+
+fn change_account(account: &mut Account) {
+    account.balace += 20;
 }
 
 fn main() {
     let mut account = Account::new(1, String::from("me"));
-    let bank = Bank::new();
+    let account_ref = &mut account;
 
-    account = print_account(account);
+    // cannot assign to `account.balace` because it is borrowed
+    // `account.balace` is assigned to here but it was already borrowed
+    // account.balace = 100;
+
+    print_account(account_ref);
+    change_account(account_ref);
+
     println!("{:#?}", account);
 }
