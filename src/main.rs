@@ -25,9 +25,9 @@ impl Bank {
     }
 }
 
-fn print_account(account: Account) -> Account {
+fn print_account(mut account: Account) -> Account {
     println!("{:#?}", account);
-
+    account.balace += 10;
     account
 }
 
@@ -36,5 +36,5 @@ fn main() {
     let bank = Bank::new();
 
     account = print_account(account);
-    print_account(account);
+    println!("{:#?}", account);
 }
