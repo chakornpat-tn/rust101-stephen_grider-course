@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct Account {
     id: u32,
     balace: i32,
@@ -29,20 +29,16 @@ fn print_account(account: &Account) {
     println!("{:#?}", account);
 }
 
-fn change_account(account: &mut Account) {
-    account.balace += 20;
+fn add_account(bank: &mut Bank, account: &Account) {
+    bank.accounts.push(account.clone());
 }
 
 fn main() {
-    let mut account = Account::new(1, String::from("me"));
-    let account_ref = &mut account;
+    let account = Account::new(1, String::from("me"));
+    let mut bank = Bank::new();
 
-    // cannot assign to `account.balace` because it is borrowed
-    // `account.balace` is assigned to here but it was already borrowed
-    // account.balace = 100;
+    add_account(&mut bank, &account);
 
-    print_account(account_ref);
-    change_account(account_ref);
-
-    println!("{:#?}", account);
+    println!("{:#?}", bank);
+    print_account(&account);
 }
