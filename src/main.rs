@@ -23,22 +23,21 @@ impl Bank {
     fn new() -> Self {
         Bank { accounts: vec![] }
     }
+
+    fn add_account(&mut self, account: Account) {
+        self.accounts.push(account);
+    }
 }
 
 fn print_account(account: &Account) {
     println!("{:#?}", account);
 }
 
-fn add_account(bank: &mut Bank, account: &Account) {
-    bank.accounts.push(account.clone());
-}
-
 fn main() {
-    let account = Account::new(1, String::from("me"));
     let mut bank = Bank::new();
+    let account = Account::new(1, "me".to_string());
 
-    add_account(&mut bank, &account);
+    bank.add_account(account);
 
     println!("{:#?}", bank);
-    print_account(&account);
 }
