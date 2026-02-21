@@ -1,43 +1,17 @@
-#[derive(Debug, Clone)]
-struct Account {
-    id: u32,
-    balace: i32,
-    holder: String,
-}
-impl Account {
-    fn new(id: u32, holder: String) -> Self {
-        Account {
-            id,
-            holder,
-            balace: 0,
-        }
-    }
-}
-
 #[derive(Debug)]
-struct Bank {
-    accounts: Vec<Account>,
+enum Media {
+    Book { title: String, author: String },
+    Movie { title: String, director: String },
+    Audiobook { title: String },
 }
 
-impl Bank {
-    fn new() -> Self {
-        Bank { accounts: vec![] }
-    }
-
-    fn add_account(&mut self, account: Account) {
-        self.accounts.push(account);
-    }
-}
-
-fn print_account(account: &Account) {
-    println!("{:#?}", account);
+fn print_dedia(media: Media) {
+    println!("{:#?}", media);
 }
 
 fn main() {
-    let mut bank = Bank::new();
-    let account = Account::new(1, "me".to_string());
-
-    bank.add_account(account);
-
-    println!("{:#?}", bank);
+    let audio_book = Media::Audiobook {
+        title: "An audiobook".to_string(),
+    };
+    print_dedia(audio_book);
 }
