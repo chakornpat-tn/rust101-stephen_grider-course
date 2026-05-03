@@ -3,6 +3,8 @@ enum Media {
     Book { title: String, author: String },
     Movie { title: String, director: String },
     Audiobook { title: String },
+    Podcast(u32),
+    Placeholder,
 }
 
 fn print_dedia(media: Media) {
@@ -15,6 +17,8 @@ impl Media {
             Media::Book { title, author } => format!("Book {} {}", title, author),
             Media::Audiobook { title } => format!("Book {}", title),
             Media::Movie { title, director } => format!("Book {} {}", title, director),
+            Media::Podcast(id) => format!("Podcast: {}", id),
+            Media::Placeholder => format!("Placeholder"),
         }
     }
 }
@@ -48,6 +52,9 @@ fn main() {
         author: "bad author".to_string(),
     };
 
+    let podcast = Media::Podcast(10);
+    let placeholder = Media::Placeholder;
+
     // println!("{}", audio_book.description());
     // println!("{}", good_movie.description());
     // println!("{}", bad_book.description());
@@ -56,6 +63,8 @@ fn main() {
     catalog.add(audio_book);
     catalog.add(good_movie);
     catalog.add(bad_book);
+    catalog.add((podcast));
+    catalog.add(placeholder);
 
     println!("{:#?}", catalog);
 }
